@@ -121,6 +121,13 @@ Para listar os planos em cache:
     - select ...
     - SET STATISTICS IO OFF
 
+**Ferramentas de Administração** 
+
+- **Profiler**: ferramenta para capturar comandos.
+- **Server Side Trace**
+- **Log do SQL Server**
+- **Log do Sistema**
+
 **Operadores de um Plano de Execução** 
 
 - **Table Scan**: varredura em página de dados, significa que o optimizer decidiu não passar por índice e sim passar registro por registro de dados até encontrar os dados solicitados.
@@ -214,7 +221,36 @@ Código | Padrão | Representação
 102 | ANSI | aaaa.mm.dd
 103 | Britânico/Francês | dd/mm/aaaa 
 109 | Padrão | mês_por_extenso dd aaaa
-112 | ISO | aaaammdd 
+112 | ISO | aaaammdd   
+
+**Funções de manipulação de Strings** 
+
+- SUBSTRING(_string, posicao_inicial, tamanho_) 
+- LTRIM(_string_)
+- RTRIM(_string_)
+- TRIM(_string_)
+- CONCAT(_string1,string2,...,stringN_)
+- LEN(_string_)
+- LOWER(_string_)
+- UPPER(_string_)
+
+**Funções Matemáticas** 
+
+- ABS(_valor_): retorna o valor absoluto.
+- CEILING(_valor_): retorna o menor inteiro maior que ou igual ao _valor_ especificado.
+- FLOOR(_valor_): retorna o maior inteiro menor ou igual ao _valor_ especificado.
+- ROUND(_valor,tamanho[,função]_): arredonda ou trunca de acordo com o _tamanho_ especificado.
+
+**Funções de manipulação de Data e Hora** 
+
+- DATEADD(_parte, qtde, datahora_): adiciona uma determinada _qtde_ a uma determinada _parte_ de _datahora_. 
+- DATEDIFF(_parte, datahora_menor, datahora_maior_): subtrai as datas e retorna a diferença de acordo com _parte_.
+- DAY(_datahora_)
+- MONTH(_datahora_) 
+- YEAR(_datahora_) 
+- DATEPART(_parte, datahora_) 
+- GETDATE() 
+- ISDATE(_expressão_)
 
 --- 
 
@@ -240,6 +276,23 @@ Código | Padrão | Representação
 
 --- 
 
+### **Novas Funcionalidades das Versões 2016 e 2017** 
+
+- In-memory
+- Query Store
+- Live Query Statistic 
+- Stretch Database 
+- JSON Support (ForJSON e OpenJSON) 
+- DTC - Distributed Transaction Coordinator 
+- Load Balancing in Readable Secondaries 
+- Always Encrypted 
+- Dynamic Data Masking 
+- Row Level Security 
+- Trim 
+- Docker + SQL Server
+
+--- 
+
 **Fontes** 
 
 - https://www.youtube.com/user/gmasql (Gustavo Maia)
@@ -253,4 +306,5 @@ Código | Padrão | Representação
 - https://www.devmedia.com.br/tuning-plano-de-execucao-parte-2/2488 
 - http://www.linhadecodigo.com.br/artigo/704/sql-server-melhorando-a-performance-atraves-das-estatisticas.aspx 
 - http://mcdbabrasil.com.br/ 
-- https://www.youtube.com/user/bosontreinamentos (Bóson Treinamentos)
+- https://www.youtube.com/user/bosontreinamentos (Bóson Treinamentos) 
+- https://docs.microsoft.com/pt-br/sql/t-sql/language-reference
