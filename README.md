@@ -103,8 +103,8 @@ Para listar os planos em cache:
     - A página com PageType=2, PrevPageFID=0 e NextPageFID=0 é a página root.
     - As demais páginas com PageType=2 são as páginas intermediárias.
 - **Para detalhar o conteúdo de uma página**
-    1. **DBCC TRACEON(3604,-1)**: sinaliza para o banco de dados que realizaremos uma leitura de página.
-    2. **DBCC PAGE('base_de_dados',id_do_indice,nro_da_pagina,3) WITH TABLERESULTS** ou apenas **DBCC PAGE('base_de_dados',id_do_indice,nro_da_pagina,3)**: exibe a página e seus detalhes.
+    1) **DBCC TRACEON(3604,-1)**: sinaliza para o banco de dados que realizaremos uma leitura de página.
+    2) **DBCC PAGE('base_de_dados',id_do_indice,nro_da_pagina,3) WITH TABLERESULTS** ou apenas **DBCC PAGE('base_de_dados',id_do_indice,nro_da_pagina,3)**: exibe a página e seus detalhes.
         - O resultado do comando nos traz:  
             - m_prevPage: página anterior.
             - m_nextPage: próxima página. 
