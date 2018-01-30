@@ -236,6 +236,7 @@ Código | Padrão | Representação
 - Trate a fragmentação de todas as bases de dados de tempo em tempo, inclusive das bases do sistema.
 - Verifique a consistência de todos as bases de dados de tempo em tempo, inclusive das bases do sistema.
 - Realize backup periódico de todas as bases de dados, inclusive das bases do sistema.
+- Cuidado ao usar NVARCHAR e NCHAR, pois estes tipos de dados só devem ser usados se você tem a necessidade de armazenar caracteres unicodes.
 
 --- 
 
