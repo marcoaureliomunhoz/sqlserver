@@ -1,6 +1,6 @@
 # SQL Server 
 
-### **Conceitos**
+### **Fundamentos de Administração**
 
 **Tipos de Tabelas**
 - **Tabela Heap**
@@ -77,9 +77,7 @@ Para listar os planos em cache:
 - Processos que ocorrem na **Storage Engine**:  
     - **Query Execution**: recebe o plano de execução otimizado em formato binário, executa o plano e retorna os dados. Durante a execução primeiro verifica se os dados estão em cache/memória, se não estiver em memória acessa o disco e salva em cache/memória.
 
---- 
-
-### **Comandos de Administração** 
+**Comandos de Administração** 
 
 - **DBCC CHECKDB**: verifica a integridade do banco de dados e realiza pequenas correções. 
 - **DBCC CHECKTABLE**: verifica a integridade de uma tabela e realiza pequenas correções. 
@@ -123,15 +121,100 @@ Para listar os planos em cache:
     - select ...
     - SET STATISTICS IO OFF
 
---- 
-
-### **Operadores de um Plano de Execução** 
+**Operadores de um Plano de Execução** 
 
 - **Table Scan**: varredura em página de dados, significa que o optimizer decidiu não passar por índice e sim passar registro por registro de dados até encontrar os dados solicitados.
 - **Index Scan ou Clustered Index Scan**: varredura em página de índice, significa que o optimizer decidiu passar por todas as linhas de algum índice que pode ser clustered ou nonclustered. Em algumas situações o optimizer pode decidir varrer o índice inteiro e filtrar em vez de simplesmente utilizar as chaves anexadas ao índice.
 - **Index Seek**: não foi necessário fazer qualquer tipo de varredura, ou seja, o optimizer entendeu que passar pelo índice (que pode ser nonclustered ou clustered) e usar as chaves anexadas é suficiente e ao mesmo tempo a melhor escolha para se chegar nos dados solicitados. 
 - **Key Lookup ou Bookmark Lookup**: significa que decidiu-se passar por um índice nonclustered, mas foi necessário passar pelo índice clustered até chegar no nó folha.
 - **RID Lookup**: significa que decidiu-se passar por um índice nonclustered, mas foi necessário acessar a tabela heap. 
+
+--- 
+
+### **Conceitos de Desenvolvimento**
+
+**Grupos de Comandos** 
+- **DDL - Data Definition Language / Linguagem de Definição de Dados**
+    - CREATE
+    - ALTER
+    - DROP
+- **DML - Data Manipulation Language / Linguagem de Manipulação de Dados**  
+    - INSERT 
+    - UPDATE 
+    - DELETE 
+- **DCL - Data Control Language / Linguagem de Controle de Acesso a Dados** 
+    - GRANT: fornece privilégios a um usuário. 
+    - REVOKE: remove privilégios fornecidos a um usuário.
+- **DQL - Data Query Language / Linguagem de Consulta de Dados** 
+    - SELECT
+
+**Junção (Join)**
+
+- **INNER JOIN**
+    - ex: SELECT * FROM tabela1 INNER JOIN tabela2 ON tabela1.chave = tabela2.chave
+    - ou: SELECT * FROM tabela1, tabela2 WHERE tabela1.chave = tabela2.chave
+- **OUTER JOIN**
+    - **LEFT JOIN**: lista registros da tabela da esquerda e quando encontrar correspondência retorna também registros da tabela da direita. Quando não encontrar correspondência as colunas da tabela da direita retornam NULL.
+        - ex: SELECT * FROM tabela_da_esquerda LEFT JOIN tabela_da_direita ON tabela_da_esquerda.chave = tabela_da_direita.chave
+    - **RIGHT JOIN**: lista registros da tabela da direita e quando encontrar correspondência retorna também registros da tabela da esquerda. Quando não encontrar correspondência as colunas da tabela da esquerda retornam NULL.
+    - **FULL JOIN**: lista todos registros das duas tabelas mesmo que não encontre correspondência. Quando não encontrar correspondência as colunas da tabela do lado sem correspondência retornam NULL.
+        - ex: SELECT * FROM tabela_da_esquerda FULL JOIN tabela_da_direita ON tabela_da_esquerda.chave = tabela_da_direita.chave
+
+**Lidando com NULL** 
+- Em consultas e views: 
+    ```sql
+    select * from Livro where DataAlteracao is null; 
+    select Codigo, Nome, isnull(Preco,0) as Preco from Produto;
+    ```
+- Em procedimentos, funções e triggers: 
+    ```sql
+    if (@data_ateracao is null) 
+    begin
+        set @data_alteracao = getdate()
+    end else begin 
+        ...
+    end
+    ```
+
+**Utilizando VIEWS** 
+
+Criando uma view
+
+```sql 
+create view [nome] as 
+   select [colunas] from [tabelas] where [condições];
+```
+
+Alterando uma view
+
+```sql 
+alter view [nome] as 
+   select [colunas] from [tabelas] where [condições];
+```
+
+Excluindo uma view
+
+```sql 
+drop view [nome];
+```
+
+**Conversão de Tipos** 
+
+- **CAST(expressão AS novo_tipo_dados)** 
+    - ex: cast(25.68 as varchar)
+- **CONVERT(novo_tipo_dados,expressão[,estilo])** 
+    - ex: convert(varchar, 25.68) 
+    - ex: convert(varchar, getdate(), 103)
+
+Alguns estilos de data para CONVERT
+
+Código | Padrão | Representação 
+--- | --- | --- 
+101 | EUA | mm/dd/aaaa 
+102 | ANSI | aaaa.mm.dd
+103 | Britânico/Francês | dd/mm/aaaa 
+109 | Padrão | mês_por_extenso dd aaaa
+112 | ISO | aaaammdd 
 
 --- 
 
