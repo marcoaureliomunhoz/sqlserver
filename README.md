@@ -124,7 +124,7 @@ Para listar os planos em cache:
 **Ferramentas de Administração** 
 
 - **Profiler**: ferramenta para capturar comandos.
-- **Server Side Trace**
+- **Server Side Trace**: para usar o SQL Server Agent deve ser instalado e ativado. 
 - **Log do SQL Server**
 - **Log do Sistema**
 
