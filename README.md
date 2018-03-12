@@ -259,7 +259,7 @@ Código | Padrão | Representação
 - Defina chaves primárias com colunas que permitam ordenação lógica e física.
 - Realize consultas mais seletivas.
 - Evite a definição de predicados dinamicamente.
-- Não utilize o asteristico (**\***) nas consultas, pois isso exige a expensão das colunas num passo interno. Seja explicito e informe apenas as colunas necessárias para o problema em questão.
+- Não utilize o asteristico (**\***) nas consultas, pois isso exige a expansão das colunas num passo interno. Seja explicito e informe apenas as colunas necessárias para o problema em questão.
 - Evite a utilização de funções de usuário, principalmente funções de formatação. Deixe a formatação para a aplicação.
 - Separe campos binários/blobs dos campos principais da tabela.
 - Evite a exclusão física em tabelas clustereds, pois a exclusão gera espaços/buracos que exigem page split.
